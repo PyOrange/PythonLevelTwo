@@ -1,10 +1,21 @@
+import pendulum
+from datetime import datetime
 
-class Person:
-    def __init__(self, name:str, age:int):
-        self.name = name
-        self.age = age
+# 모든 타임존 출력
+timezones = pendulum.timezones
+print(timezones)
 
-print("Hello, World!")
+# 복수의 타임존 객체로 리스트 만들기
+timezone_list = []
+timezone_list.append(pendulum.timezone('UTC'))
+timezone_list.append(pendulum.timezone('Asia/Seoul'))
+timezone_list.append(pendulum.timezone('Asia/Shanghai'))
+timezone_list.append(pendulum.timezone('America/New_York'))
+timezone_list.append(pendulum.timezone('America/Los_Angeles'))
+timezone_list.append(pendulum.timezone('Indian/Maldives'))
 
-p = Person("Sample", 10)
-print(p)
+# 각 리스트의 타임존 객체로 현재 시간 출력하기
+for timezone in timezone_list:
+    current_time = datetime.now(timezone)
+    print(current_time)
+    
