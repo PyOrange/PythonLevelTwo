@@ -1,10 +1,10 @@
-# Chapter05-01
-# 일급 함수(일급 객체)
-# 파이썬 함수 특징
-# 1.런타임 초기화 
-# 2.변수 할당 가능
-# 3.함수 인수 전달 가능
-# 4.함수 결과 반환 가능
+# 일급 함수
+# 필요한 조건:
+# 1. 런타임 초기화
+# 2. 변수 할당 가능
+# 3. 함수 인수 전달 가능
+# 4. 결과 반환 가능
+
 
 # 함수 객체
 def factorial(n):
@@ -42,9 +42,11 @@ var_func = factorial
 print(var_func)
 print(var_func(10))
 print(map(var_func, range(1,11)))
+
+# map, filter 활용
+# map : 반복 가능한 객체의 각 요소에 함수를 적용하여 새로운 값을 생성?
+# filter : 특정 조건으로 필터링 반복작업
 print(list(map(var_func, range(1,6))))
-
-
 print(list(map(var_func, filter(lambda x: x % 2, range(1,6)))))
 print([var_func(i) for i in range(1,6) if i % 2])
 
@@ -53,6 +55,7 @@ print()
 
 # reduce() : 반복 가능한 값을 하나의 변수로 만듦
 from functools import reduce
+# add = +
 from operator import add
 
 # 1 + 2 + 3 + ... + 11
@@ -79,8 +82,9 @@ print(sg.parameters)
 print()
 print()
 
-# partial : 기존 숫자를 고정하거나 재사용 
+# mul = *
 from operator import mul
+# partial : 기존 숫자를 고정하거나 재사용
 from functools import partial
 
 print(mul(10,10))
@@ -97,15 +101,15 @@ print([five(i) for i in range(1,11)])
 print(list(map(five, range(1,11))))
 
 
-# 예
+# 파이선 변수 범위 예제1
 def func_v1(a):
     print(a)
     print(b)
 
-# 예외 : 직접 숫자 넣는건 안됨
+# 에러 : b 없음
 # func_v1(10)
 
-# 예2
+# 예시2
 b = 20
 
 def func_v2(a):
@@ -115,11 +119,12 @@ def func_v2(a):
 func_v2(10)
 
 
-# Ex3
+# 예시3
 
 c = 30
 
 def func_v3(a):
+    # global : 밖에 있는 변수 참조
     global c
     print(a)
     print(c)
@@ -129,6 +134,9 @@ print('>>',c)
 func_v3(10)
 print('>>>',c)
 
+# 클로저 : 메서드 내의 변수 상태(값) 기억, 변경되지 않음
+# 사용 이유 : 동시 접속 시 터지는거 대비 제어를 쉽게 함
+#             따라서 여러 일을 동시에 실행하는데 강점
 from dis import dis
 
 print()
@@ -143,7 +151,7 @@ a = 100
 print(a + 100)
 print(a + 1000)
 
-# 결과 누적(함수 사용)
+# sum : 결과 누적
 print(sum(range(1,51)))
 print(sum(range(51,101)))
 
@@ -151,10 +159,12 @@ print()
 print()
 
 # 클래스를 활용
+# 값을 누적시켜 평균을 구하는 클래스
 class Averager():
     def __init__(self):
         self._series = []
 
+# call : 클래스를 함수처럼 쓸 수 있게 해주는 매직 메서드
     def __call__(self, v):
         self._series.append(v)
         print('inner >>> {} / {}'.format(self._series, len(self._series)))
@@ -164,7 +174,7 @@ class Averager():
 # 인스턴스 생성
 averager_cls = Averager()
 
-# 누적
+# call 메서드를 통해 클래스를 함수처럼 활용
 print(averager_cls(15))
 print(averager_cls(35))
 print(averager_cls(40))
@@ -172,11 +182,11 @@ print(averager_cls(40))
 print()
 print()
 
-# 클로저(Closure) 사용
+# 클로저 사용
+# 값을 누적시켜 평균을 구하는 클래스
 def closure_ex1():
-    # Free variable
     series = []
-    # 클로저 영역
+    # 클로저 영역 : 메서드 바깥에 있는 자유 변수에도 접근 및 저장 가능
     def averager(v):
         # series = [] # 주석 해제 후 확인
         series.append(v)
@@ -195,8 +205,9 @@ print(avg_closure1(40))
 print()
 print()
 
-# function inspection
+# 함수 내부 조사
 
+# 구현할 수 있는 함수 목록 출력
 print(dir(avg_closure1))
 print()
 print(dir(avg_closure1.__code__))
@@ -212,12 +223,15 @@ print()
 
 
 # 잘못된 클로저 사용
+
 def closure_ex2():
     cnt = 0
     total = 0
 
     def averager(v):
+        # = len
         cnt += 1 # cnt = cnt + 1
+        # = sum
         total += v
         return total / cnt
     
@@ -225,15 +239,16 @@ def closure_ex2():
 
 avg_closure2 = closure_ex2()
 
-# print(avg_closure2(15)) # 예외
+# 에러 : 위의 자유변수를 참조하지 못함
+# print(avg_closure2(15))
 
-
-# Nonlocal : 메서드 밖에 있는 변수 가져옴
+# 잘못된 예시를 실행되게 변경
 def closure_ex3():
     cnt = 0
     total = 0
     
     def averager(v):
+        # Nonlocal : 메서드 밖에 있는 변수 가져옴
         nonlocal cnt, total
         cnt += 1
         total += v
@@ -243,6 +258,7 @@ def closure_ex3():
 
 avg_closure3 = closure_ex3()
 
+# 예제2 와는 다르게 실행 가능
 print(avg_closure3(15))
 print(avg_closure3(35))
 print(avg_closure3(40))
@@ -250,10 +266,16 @@ print(avg_closure3(40))
 print()
 print()
 
+
+# 데코레이터 : 함수를 수정하지 않고 기능을 추가
+# 장점 : 재사용성 향상, 권한 검사, 시간 측정에 용이
+# 단점 : 남발시 가독성 감소, 한 번만 사용되는 함수에 부적절 
+
 # 데코레이터 실습
 import time
 
 def perf_clock(func):
+    # 클로저
     def perf_clocked(*args):
         # 함수 시작 시간 
         st = time.perf_counter() 
@@ -294,7 +316,6 @@ none_deco2(100, 150, 250, 300, 350)
 
 print()
 print()
-
 
 # 데코레이터 사용
 print('*' * 40, 'Called Decorator -> time_func')
