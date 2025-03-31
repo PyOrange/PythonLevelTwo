@@ -1,6 +1,6 @@
-# Chapter07-01
+
 # Asyncio
-# 비동기 I/O Coroutine 작업
+# 비동기 I/O(네트워크 요청, 파일 읽기/쓰기 등) 코루틴 작업
 # Generator -> 반복적인 객체 Return 사용
 # non-blocking 비동기 처리
 
