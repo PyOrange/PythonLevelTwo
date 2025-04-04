@@ -1,44 +1,33 @@
 
-# 비동기 I/O 코루틴 작업
+# Asyncio
+# 비동기 I/O(네트워크 요청, 파일 읽기/쓰기 등) 코루틴 작업
 # Generator -> 반복적인 객체 Return 사용
+# non-blocking 비동기 처리
+
 # Asyncio 웹 스크랩핑 실습
-# Beautiful Soup : HTML과 XML 데이터를 쉽게 관리할 수 있는 파이썬 라이브러리
-# 스케쥴러 사용시 주기적으로 데이터 수집 가능
-# 수집 정보 DB 저장 : 파이썬 기초 강의 참고
-
-
+# aiohttp 권장
 import asyncio
 import timeit
 from urllib.request import urlopen
 from concurrent.futures import ThreadPoolExecutor
 import threading
-from bs4 import BeautifulSoup
-
-import sys
-import io
-sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 # 실행 시작 시간
 start = timeit.default_timer()
-# 웹사이트로 실습 
-urls = ['http://daum.net', 'https://naver.com', 'http://mlbpark.donga.com/', 'https://tistory.com', 'https://www.inflearn.com/']
+# 서비스 방향이 비슷한 사이트로 실습 권장(예 : 게시판성 커뮤니티)
+urls = ['http://daum.net', 'https://naver.com', 'http://mlbpark.donga.com/', 'https://tistory.com', 'https://wemakeprice.com/']
 
-
+# 여러 웹사이트를 병렬로 요청
 async def fetch(url, executor):
     # 쓰레드명 출력
     print('Thread Name :', threading.current_thread().getName(), 'Start', url)
+    
     # 실행
     res = await loop.run_in_executor(executor, urlopen, url)
-    
-    soup = BeautifulSoup(res.read(), 'html.parser')
-    
-    # 페이지 타이틀 정보 수집
-    result_data = soup.title
-
     print('Thread Name :', threading.current_thread().getName(), 'Done', url)
+    
     # 결과 반환
-    return result_data
+    return res.read()[0:5]
 
 async def main():
     # 쓰레드 풀 생성

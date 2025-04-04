@@ -9,10 +9,6 @@ def generator_ex1():
 
 temp = iter(generator_ex1())
 
-# print(next(temp))
-# print(next(temp))
-# print(next(temp))
-
 for v in generator_ex1():
     pass
     # print(v)

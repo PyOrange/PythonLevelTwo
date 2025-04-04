@@ -10,7 +10,7 @@
 # 반복 가능한 이유 :  iter(t) 함수 호출
 t = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-# for 반복
+# for 반복문으로 t의 단어 한 글자씩 출력
 for c in t:
     print(c)
 
@@ -20,7 +20,7 @@ print()
 # 이터레이터 생성
 w = iter(t)
 
-# 이터레이터 이용한 반복문
+# 이터레이터 이용한 반복문으로 t의 단어 한 글자씩 출력
 while True:
     try:
         print(next(w))
@@ -46,7 +46,7 @@ class WordSplitter:
         # 공백을 기준으로 나눔
         self._text = text.split(' ')
     
-    # 단어별로 구분해서 반환한다?
+    # 문장을 특정 단어를 기준으로 나누어 반환
     def __next__(self):
         # print('Called __next__')
         try:

@@ -72,6 +72,7 @@ print()
 # Callable : 호출 연산자 : 메소드 형태로 호출 가능한지 확인
 print(callable(str), callable(list), callable(var_func), callable(3.14))
 
+# signature : 클래스 또는 메서드 내의 변수를 추출하는데 유용
 from inspect import signature
 
 sg = signature(var_func)
@@ -99,4 +100,37 @@ print(five(10))
 print(six())
 print([five(i) for i in range(1,11)])
 print(list(map(five, range(1,11))))
+
+
+# 파이선 변수 범위 예제1
+def func_v1(a):
+    print(a)
+    print(b)
+
+# 에러 : b 없음
+# func_v1(10)
+
+# 예시2
+b = 20
+
+def func_v2(a):
+    print(a)
+    print(b)
+
+func_v2(10)
+
+# 예시3
+
+c = 30
+
+def func_v3(a):
+    # global : 밖에 있는 변수 참조
+    global c
+    print(a)
+    print(c)
+    c = 40
+    
+print('>>',c)
+func_v3(10)
+print('>>>',c)
 

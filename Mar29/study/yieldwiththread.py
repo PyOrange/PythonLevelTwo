@@ -38,6 +38,7 @@ def coroutine2(x):
 
 cr3 = coroutine2(10)
 
+# getgeneratorstate : 뭐겠니 제네레이터 상태값 알려주는 거겠지
 from inspect import getgeneratorstate
 
 print(getgeneratorstate(cr3))
@@ -46,6 +47,7 @@ print(next(cr3))
 
 print(getgeneratorstate(cr3))
 
+# send : 변수 값에 일정 숫자 추가
 print(cr3.send(15))
 
 # print(c3.send(20))
