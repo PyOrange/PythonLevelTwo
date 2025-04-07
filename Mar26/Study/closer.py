@@ -45,6 +45,9 @@ class Averager():
         print('inner >>> {} / {}'.format(self._series, len(self._series)))
         return sum(self._series) / len(self._series)
 
+"""
+    [Q] __call__ 메서드를 현업에서는 주로 어떤 용도로 사용하는지 알려주세요! (예제 2가지 포함)
+"""
 
 # 인스턴스 생성
 averager_cls = Averager()
@@ -70,6 +73,13 @@ def closure_ex1():
     
     return averager
 
+"""
+    [Q] 클로저에서 사용하는 변수는 어떤 때에 nonlocal 처리를 하고, 어떤 때에 안 하는지 알려주세요! (예제 2가지 포함)
+    - nonlocal 처리를 해야 하는 변수
+    - nonlocal 처리가 필요 없는 변수
+    
+    [Q] 클로저 메서드는 현업에서 어떤 용도로 주로 사용하는지 알려주세요! (예제 2가지 포함)
+"""
 
 avg_closure1 = closure_ex1()
 

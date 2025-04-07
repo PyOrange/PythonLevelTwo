@@ -5,6 +5,11 @@
 # 3. 함수 인수 전달 가능
 # 4. 결과 반환 가능
 
+"""
+    [Q] 재귀 함수에 대해서 설명과 예제를 보여주세요! (예제 2가지 포함)
+    [Q] 파이썬의 '일급 함수'에 대해서 설명과 예제를 보여주세요! (예제 2가지 포함)
+    - 일급 함수와 일반 함수 사이의 차이점은?
+"""
 
 # 함수 객체
 def factorial(n):
@@ -50,6 +55,13 @@ print(list(map(var_func, range(1,6))))
 print(list(map(var_func, filter(lambda x: x % 2, range(1,6)))))
 print([var_func(i) for i in range(1,6) if i % 2])
 
+"""
+    [Q] 위의 예제에서 map + range / map + filter / list generator 을 사용했을때의 장단점을 설명해주세요! (예제 1가지씩 포함)
+    - map + range
+    - map + filter
+    - list generator
+"""
+
 print()
 print()
 
@@ -64,7 +76,12 @@ print(sum(range(1,11)))
 
 
 # 람다 : 함수를 선언할때 사용, 기존 메서드 선언보다 간단함에 특화
-print(reduce(lambda x, t: x + t, range(1,11)))
+print("T>" + str(reduce(lambda x, t: x + t, range(1,11))))
+
+
+"""
+    [Q] reduce 메서드가 어떻게 동작하는지 기능을 구체적으로 설명해주세요! (예제 2가지 포함)
+"""
 
 print()
 print()

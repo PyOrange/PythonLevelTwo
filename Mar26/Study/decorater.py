@@ -25,6 +25,12 @@ def perf_clock(func):
 @perf_clock
 def time_func(seconds):
     time.sleep(seconds)
+    
+"""
+    [Q] 데코레이터를 사용해서 아래의 기능을 구현해 주세요.
+    - 메서드 실행 중, 예외 발생 시 "예외 발생!" 이라고 출력해주는 기능
+    - 메서드 실행 성공/실패 여부와 소요 시간을 출력해주는 기능
+"""
 
 @perf_clock
 def sum_func(*numbers):
